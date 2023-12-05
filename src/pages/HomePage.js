@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getWeatherByCity } from '../api/weatherAPI';
+import { getWeatherByCity } from '../api/weatherAPI'; 
+import WeatherInfo from '../components/WeatherInfo'; 
 
 function HomePage() {
   const [weather, setWeather] = useState(null);
@@ -41,12 +42,7 @@ function HomePage() {
         <option value="Gyeongsangnam-do">경상남도</option>
         <option value="Jeju-do">제주도</option>
       </select>
-      {weather && (
-        <div>
-          <h2>{weather.name}</h2>
-          <p>{weather.weather[0].description}</p>
-        </div>
-      )}
+      {weather && <WeatherInfo weather={weather} />}
     </div>
   );
 }
