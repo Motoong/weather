@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getWeatherByCity } from '../api/weatherAPI'; 
-import WeatherInfo from '../components/WeatherInfo'; 
+import { getWeatherByCity } from '../api/weatherAPI';
+import WeatherInfo from '../components/WeatherInfo';
+import CityDropdown from '../components/CityDropdown';
+import '../css/HomePage.css'; // CSS 파일을 import 합니다.
 
 function HomePage() {
   const [weather, setWeather] = useState(null);
@@ -13,6 +15,7 @@ function HomePage() {
   useEffect(() => {
     getWeatherByCity(city)
       .then(response => {
+        console.log(response.data);
         setWeather(response.data);
       })
       .catch(error => {
@@ -21,27 +24,11 @@ function HomePage() {
   }, [city]);
 
   return (
-    <div>
-      <h1>홈 페이지</h1>
-      <select value={city} onChange={handleCityChange}>
-        <option value="Seoul">서울</option>
-        <option value="Busan">부산</option>
-        <option value="Daegu">대구</option>
-        <option value="Incheon">인천</option>
-        <option value="Gwangju">광주</option>
-        <option value="Daejeon">대전</option>
-        <option value="Ulsan">울산</option>
-        <option value="Sejong">세종</option>
-        <option value="Gyeonggi-do">경기도</option>
-        <option value="Gangwon-do">강원도</option>
-        <option value="Chungcheongbuk-do">충청북도</option>
-        <option value="Chungcheongnam-do">충청남도</option>
-        <option value="Jeollabuk-do">전라북도</option>
-        <option value="Jeollanam-do">전라남도</option>
-        <option value="Gyeongsangbuk-do">경상북도</option>
-        <option value="Gyeongsangnam-do">경상남도</option>
-        <option value="Jeju-do">제주도</option>
-      </select>
+    <div className="home-page">
+      <h1>날씨 정보</h1>
+      <div className="dropdown-container">
+        <CityDropdown city={city} handleCityChange={handleCityChange} />
+      </div>
       {weather && <WeatherInfo weather={weather} />}
     </div>
   );
